@@ -1,2 +1,0 @@
-# HAHAHAHA from ZZZZZEC
-
