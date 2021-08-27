@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemies_frog : MonoBehaviour
+public class Enemies_frog : Enemy
 {
     // Start is called before the first frame update
     private Rigidbody2D rb;
@@ -10,14 +10,15 @@ public class Enemies_frog : MonoBehaviour
     private bool faceleft=true;
     public float speed,jumpforce;
     private float left_x, right_x;
-    private Animator anim;
+    //private Animator anim;
     private Collider2D coll;
     public LayerMask ground;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb=GetComponent<Rigidbody2D>();//获得刚体
-        anim=GetComponent<Animator>();//获得动画
+        //anim=GetComponent<Animator>();//获得动画
         coll=GetComponent<Collider2D>();
         transform.DetachChildren();//左右点不会跟随移动
         left_x= leftpoint.position.x;//获得左右点坐标

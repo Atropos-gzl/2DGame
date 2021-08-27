@@ -15,6 +15,7 @@ public class player_move : MonoBehaviour
     public int gem;
     public Text Gemnumber;
     private bool isHurt;
+    public AudioSource jumpAudio,itemAudio,hurtAudio;
 
 
 
@@ -35,6 +36,7 @@ public class player_move : MonoBehaviour
         //if(Input.GetButtonDown("Jump"))
         {
             rb.velocity= new Vector2(rb.velocity.x, JumpForce);
+            jumpAudio.Play();
             anim.SetBool("jumping", true);
         }
         }
@@ -99,6 +101,7 @@ public class player_move : MonoBehaviour
             }
         }else if(isHurt)
             {
+                hurtAudio.Play();
                 anim.SetBool("hurt", true);
                 anim.SetFloat("running", 0);
                 if(Mathf.Abs(rb.velocity.x)<0.1f)
@@ -120,6 +123,7 @@ public class player_move : MonoBehaviour
     {
         if(collision.tag=="Collection")
         {
+            itemAudio.Play();
             Destroy(collision.gameObject);
             gem++;
             Gemnumber.text=gem.ToString();
@@ -131,10 +135,10 @@ public class player_move : MonoBehaviour
     {
         if(collision.gameObject.tag=="Enemies")//如果碰到敌人
         {
-               Enemies_frog frog= collision.gameObject.GetComponent<Enemies_frog>();
+               Enemy enemy= collision.gameObject.GetComponent<Enemy>();
                if(anim.GetBool("falling"))//从上面碰撞，消灭敌人
                {
-                   frog.JumpOn();
+                   enemy.JumpOn();
                    rb.velocity= new Vector2(rb.velocity.x, JumpForce);
                    anim.SetBool("jumping", true);
                }
